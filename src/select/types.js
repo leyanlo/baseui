@@ -130,6 +130,7 @@ export type DropDownPropsT = {
   overrides?: OverridesDropDownT,
   options: Array<OptionT>,
   selectedOptions: Array<OptionT>,
+  multiple: boolean,
   isDropDownOpen: boolean,
   optionsLoaded: boolean,
   type: string,

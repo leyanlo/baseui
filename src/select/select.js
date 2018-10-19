@@ -220,7 +220,13 @@ class Select extends React.Component<PropsT, StatelessStateT> {
           placeholder={!selectedOptions.length ? placeholder : ''}
           overrides={{
             Root: {component: Root, props: rootProps},
-            Input: {component: Input, props: inputProps},
+            Input: {
+              component: Input,
+              props: {
+                ...this.getAccessibilityProps(),
+                ...inputProps,
+              },
+            },
             InputContainer: {
               component: InputContainer,
               props: inputContainerProps,
@@ -259,6 +265,7 @@ class Select extends React.Component<PropsT, StatelessStateT> {
         overrides={{
           Input: {
             props: {
+              ...this.getAccessibilityProps(),
               tabIndex: this.props.tabIndex,
               // onKeyDown happens before onChange to avoid race condition in set of value and hot keys processing
               onKeyDown: e => this.handledHotKeys(e),
@@ -296,7 +303,7 @@ class Select extends React.Component<PropsT, StatelessStateT> {
     const {type, disabled, selectedOptions} = this.props;
     const multiple = this.isMultiple();
     return (
-      <React.Fragment>
+      <div role="list">
         {type === TYPE.search && (
           <SelectComponentIcon
             $type={ICON.loop}
@@ -310,6 +317,7 @@ class Select extends React.Component<PropsT, StatelessStateT> {
           option =>
             multiple ? (
               <Tag
+                overrides={{Root: {props: {role: 'listitem'}}}}
                 disabled={disabled}
                 key={option.id}
                 onActionClick={e => {
@@ -322,6 +330,7 @@ class Select extends React.Component<PropsT, StatelessStateT> {
               </Tag>
             ) : (
               <SingleSelection
+                role="listitem"
                 key={option.id}
                 $disabled={disabled}
                 {...singleSelectionProps}
@@ -330,7 +339,7 @@ class Select extends React.Component<PropsT, StatelessStateT> {
               </SingleSelection>
             ),
         )}
-      </React.Fragment>
+      </div>
     );
   }
 
@@ -352,6 +361,7 @@ class Select extends React.Component<PropsT, StatelessStateT> {
       maxDropdownHeight,
       options,
       overrides,
+      multiple: this.isMultiple(),
       optionsLoaded,
       isDropDownOpen,
       selectedOptions,
@@ -455,6 +465,16 @@ class Select extends React.Component<PropsT, StatelessStateT> {
         overrides.InputContainer,
         StyledInputContainer,
       ),
+    };
+  }
+
+  getAccessibilityProps() {
+    const {type} = this.props;
+    const {isDropDownOpen} = this.state;
+    return {
+      role: 'combobox',
+      'aria-autocomplete': type === TYPE.search ? 'list' : 'none',
+      'aria-expanded': isDropDownOpen,
     };
   }
 }
