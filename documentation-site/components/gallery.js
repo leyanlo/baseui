@@ -267,7 +267,10 @@ function Thumbnail({children, href}) {
       href={href}
       className={css({
         ...theme.borders.border300,
-        borderColor: theme.colors.border,
+        borderTopColor: theme.colors.border,
+        borderRightColor: theme.colors.border,
+        borderBottomColor: theme.colors.border,
+        borderLeftColor: theme.colors.border,
         display: 'flex',
         flexDirection: 'column',
         marginRight: theme.sizing.scale800,

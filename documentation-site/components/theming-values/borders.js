@@ -31,7 +31,8 @@ function BorderPreview({name, border}) {
   return (
     <Block width="250px" margin="scale800">
       <Block font="font300">
-        {name} ({border.borderWidth} {border.borderStyle} {border.borderColor})
+        {name} ({border.borderTopWidth} {border.borderTopStyle}{' '}
+        {border.borderTopColor})
       </Block>
       <StyledBorderBox $border={border} />
     </Block>

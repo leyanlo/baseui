@@ -5,6 +5,12 @@ This source code is licensed under the MIT license found in the
 LICENSE file in the root directory of this source tree.
 */
 // @flow
+import type {
+  BorderBottomStyleProperty,
+  BorderLeftStyleProperty,
+  BorderRightStyleProperty,
+  BorderTopStyleProperty,
+} from 'csstype';
 
 import type {ResponsiveT} from '../layout-grid/types.js';
 export type ColorTokensT = {
@@ -649,9 +655,18 @@ export type AnimationT = {
 };
 
 export type BorderT = {
-  borderColor: string,
-  borderStyle: string,
-  borderWidth: string,
+  borderTopColor: string,
+  borderRightColor: string,
+  borderBottomColor: string,
+  borderLeftColor: string,
+  borderTopStyle: BorderTopStyleProperty,
+  borderRightStyle: BorderRightStyleProperty,
+  borderBottomStyle: BorderBottomStyleProperty,
+  borderLeftStyle: BorderLeftStyleProperty,
+  borderTopWidth: string,
+  borderRightWidth: string,
+  borderBottomWidth: string,
+  borderLeftWidth: string,
 };
 
 export type BordersT = {
